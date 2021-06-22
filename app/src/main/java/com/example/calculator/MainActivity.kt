@@ -18,60 +18,73 @@ class MainActivity : AppCompatActivity() {
             output.text=""
         }
 
+
+        //Literal
+        button_0.setOnClickListener() {
+            input.text= addToInputText("0")
+        }
+        button_1.setOnClickListener {
+            input.text= addToInputText("1")
+        }
+        button_2.setOnClickListener {
+            input.text= addToInputText("2")
+        }
+        button_3.setOnClickListener {
+            input.text= addToInputText("3")
+        }
+        button_4.setOnClickListener {
+            input.text= addToInputText("4")
+        }
+        button_5.setOnClickListener {
+            input.text= addToInputText("5")
+        }
+        button_6.setOnClickListener {
+            input.text= addToInputText("6")
+        }
+        button_7.setOnClickListener {
+            input.text= addToInputText("7")
+        }
+        button_8.setOnClickListener {
+            input.text= addToInputText("8")
+        }
+        button_9.setOnClickListener {
+            input.text= addToInputText("9")
+        }
+
+        // Operators
+
+
         button_bracket_left.setOnClickListener {
-            input.text= addToImputText("(")
+            input.text= addToInputText("(")
         }
 
         button_bracket_rigth.setOnClickListener {
-            input.text= addToImputText(")")
-        }
-
-        button_0.setOnClickListener() {
-            input.text= addToImputText("0")
-        }
-        button_1.setOnClickListener {
-            input.text= addToImputText("1")
-        }
-        button_2.setOnClickListener {
-            input.text= addToImputText("2")
-        }
-        button_3.setOnClickListener {
-            input.text= addToImputText("3")
-        }
-        button_4.setOnClickListener {
-            input.text= addToImputText("4")
-        }
-        button_5.setOnClickListener {
-            input.text= addToImputText("5")
-        }
-        button_6.setOnClickListener {
-            input.text= addToImputText("6")
-        }
-        button_7.setOnClickListener {
-            input.text= addToImputText("7")
-        }
-        button_8.setOnClickListener {
-            input.text= addToImputText("8")
-        }
-        button_9.setOnClickListener {
-            input.text= addToImputText("9")
+            input.text= addToInputText(")")
         }
         button_dot.setOnClickListener {
-            input.text= addToImputText(".")
+            rewriting(".")
+
         }
         button_addition.setOnClickListener {
-            input.text= addToImputText("+")
+            rewriting("+")
         }
+
         button_division.setOnClickListener {
-            input.text= addToImputText("÷")
+            rewriting("÷")
+
         }
 
         button_multiply.setOnClickListener {
-            input.text= addToImputText("×")
+            rewriting("×")
+
         }
+
         button_subtration.setOnClickListener {
-            input.text= addToImputText("-")
+
+            rewriting("-")
+
         }
+
         button_equls.setOnClickListener {
             showResult()
         }
@@ -79,15 +92,40 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun addToImputText(buttonValue: String): String{
-
-        return "${input.text}$buttonValue"
+    private fun rewriting(buttonOperator: String){
+        if(checkOperators()){
+            dropOperator()
+            input.text= addToInputText(buttonOperator)
+        }else{
+            input.text= addToInputText(buttonOperator)
+        }
     }
+
+    private fun addToInputText(buttonValue: String): String{
+
+            return "${input.text}$buttonValue"
+
+    }
+
+    private fun dropOperator(){
+        input.text = input.text.toString().dropLast(1)
+    }
+
 
     private fun getInputExpression():String {
         var expression = input.text.replace(Regex("÷"), "/")
         expression = input.text.replace(Regex("×"),"*")
         return expression
+    }
+    private fun checkOperators(): Boolean {
+        return when (input.text[input.text.lastIndex].toString()) {
+            "+" -> true
+            "-" -> true
+            "×" -> true
+            "÷" -> true
+            "." -> true
+            else -> false
+        }
     }
 
     private fun showResult(){
